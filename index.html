@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather Dashboard</title>
+</head>
+
+<body>
+
+  <!-- Weather Select Box -->
+  <form id="weather-form">
+
+    <!-- Label for Text Box -->
+    <label for="city-input">Choose Your City</label>
+
+    <!-- Text Input Box -->
+    <input type="text" id="city-input"><br>
+
+    <!-- Submit Button -->
+    <input id="select-city" type="submit" value="GO!">
+  </form>
+
+  <!-- City Information -->
+  <div id="city-div"></div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    function searchCityWeather(city) {
+    
+        var url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=f6fb8b1aae3ce9e37c1f9a468c2d4be2";
+        //var url = "http://api.openweathermap.org/data/2.5/weather?id=524901&units=imperial&APPID=f6fb8b1aae3ce9e37c1f9a468c2d4be2";
+        $.ajax({
+          url: url,
+          method: "GET"
+        }).then(function(response) {
+        console.log(response);
+        var cityDate = response.dt;
+        console.log(cityDate);
+        var cityTemp = response.main.temp;
+        console.log(cityTemp);
+        var nameCity = response.name;
+        console.log(nameCity);
+        var windSpeed = response.wind.speed;
+        console.log(windSpeed);
+        var humidity = response.main.humidity;
+        console.log(humidity);
+        /*var p1 = $("<p>").text("Name: " + artistN);
+        var imgUrl = response.thumb_url;
+        var img = $("<img>").attr("src", imgUrl);
+        var tracker = response.tracker_count;
+        var p2 = $("<p>").text("Tracker Count: " + tracker);
+        var upcoming = response.upcoming_event_count;
+        var p3 = $("<p>").text("Upcoming Events: " + upcoming);
+        var bandsUrl = response.url;
+        var p4 = $("<p>").text("Bands In Town URL: " + bandsUrl);
+       
+        var separator = $("<hr>");
+        $("#artist-div").prepend(p1, img, p2, p3, p4, separator);*/
+      });
+    }
+  // Event handler for user clicking the select-city button
+  $("#select-city").on("click", function(event) {
+    // Preventing the button from trying to submit the form
+    event.preventDefault();
+    // Storing the city name
+    var cityname = $("#city-input").val().trim();
+    
+    // Running the searchCityWeather function(passing in the city as an argument)
+    searchCityWeather(cityname);
+  });
+
+  </script>
+
+</html>
