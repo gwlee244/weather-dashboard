@@ -1,0 +1,31 @@
+body {
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1;
+}
+
+.cityName {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.uv {
+    color: red;
+}
+
+#weather-current {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+#fivedayrow {
+    margin-left: 150px;
+}
+
+#select-city {
+    background-color: skyblue;
+}

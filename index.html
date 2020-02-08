@@ -4,74 +4,71 @@
 <head>
   <meta charset="utf-8">
   <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
 </head>
 
 <body>
 
-  <!-- Weather Select Box -->
-  <form id="weather-form">
-
-    <!-- Label for Text Box -->
-    <label for="city-input">Choose Your City</label>
-
-    <!-- Text Input Box -->
-    <input type="text" id="city-input"><br>
-
-    <!-- Submit Button -->
-    <input id="select-city" type="submit" value="GO!">
-  </form>
-
-  <!-- City Information -->
-  <div id="city-div"></div>
+ 
+    <div class = "container-fluid">
+        <nav class = "navbar justify-content-center" id = "nav-bar">
+           <h1 class = "display-3 text-center">Weather Dashboard </h1>
+        </nav>
+    
+  
+        <div class = "row">
+            <div class = "col-md-4 searchBox">
+                <h3>Search for a City</h3>
+        <!-- Text Box and search button-->
+                <form class = "form-inline">
+                    <input class = "form-control mr-sm-2" type = "search" id = "city-input" placeholder = "city name"
+                        aria-label = "Search">
+                        <button class = "btn btn-outline-secondary" type = "button" id = "select-city"> <i class = "fas fa-search">
+                        </i></button>
+                </form>
+                <ul class = "list-group searchhistory"></ul>
+            </div>
+        </div>
+            <br>
+        <!-- Clear Button-->
+            <button class = "bt btn-outline-secondary" type = "button" id = "clearBtn">Clear Cities</button>
+            <div class = "listCities"></div>
+    
+            <div class = "currentWeather">
+                <h2>Current Weather</h2>
+                <div class = "card">
+                    <div id = "weather-current" class = "card-body"></div>
+                </div>
+                <h2>5-Day Forecast</h2>
+                <br>
+            </div>
+            <div class = "row" id = "fivedayrow">
+                <div class = "col-md-2">
+                    <div id = "5day1"></div>
+                </div>
+                <div class = "col-md-2">
+                    <div id = "5day2"></div>
+                </div>
+                <div class = "col-md-2">
+                    <div id = "5day3"></div>
+                </div>
+                <div class = "col-md-2">
+                    <div id = "5day4"></div>
+                </div>
+                <div class = "col-md-2">
+                    <div id = "5day5"></div>
+                </div>
+            </div>
+    </div>
+  <script src="script.js"></script>
 
 </body>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script>
-    function searchCityWeather(city) {
     
-        var url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=f6fb8b1aae3ce9e37c1f9a468c2d4be2";
-        //var url = "http://api.openweathermap.org/data/2.5/weather?id=524901&units=imperial&APPID=f6fb8b1aae3ce9e37c1f9a468c2d4be2";
-        $.ajax({
-          url: url,
-          method: "GET"
-        }).then(function(response) {
-        console.log(response);
-        var cityDate = response.dt;
-        console.log(cityDate);
-        var cityTemp = response.main.temp;
-        console.log(cityTemp);
-        var nameCity = response.name;
-        console.log(nameCity);
-        var windSpeed = response.wind.speed;
-        console.log(windSpeed);
-        var humidity = response.main.humidity;
-        console.log(humidity);
-        /*var p1 = $("<p>").text("Name: " + artistN);
-        var imgUrl = response.thumb_url;
-        var img = $("<img>").attr("src", imgUrl);
-        var tracker = response.tracker_count;
-        var p2 = $("<p>").text("Tracker Count: " + tracker);
-        var upcoming = response.upcoming_event_count;
-        var p3 = $("<p>").text("Upcoming Events: " + upcoming);
-        var bandsUrl = response.url;
-        var p4 = $("<p>").text("Bands In Town URL: " + bandsUrl);
-       
-        var separator = $("<hr>");
-        $("#artist-div").prepend(p1, img, p2, p3, p4, separator);*/
-      });
-    }
-  // Event handler for user clicking the select-city button
-  $("#select-city").on("click", function(event) {
-    // Preventing the button from trying to submit the form
-    event.preventDefault();
-    // Storing the city name
-    var cityname = $("#city-input").val().trim();
-    
-    // Running the searchCityWeather function(passing in the city as an argument)
-    searchCityWeather(cityname);
-  });
-
-  </script>
-
 </html>
