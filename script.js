@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    //var city = [];
+    //var cityList = [];
     // Event handler for user clicking the select-city button
     $("#select-city").on("click", function(event) {
         // Preventing the button from trying to submit the form
@@ -16,7 +16,6 @@ $(document).ready(function() {
         $("#5day5").empty();
         // Running the searchCityWeather function(passing in the city as an argument)
         searchCityWeather(city);        
-      //  getuvIndex();
         });
 
     $(".searchhistory").on("click", "li", function(event) {
@@ -32,8 +31,10 @@ $(document).ready(function() {
     //add city to searched list
     function addSearchCity(text) {
         var li = $("<li>").addClass("list-group-item list-group-item-action").text(text);
-        $(".searchhistory").append(li.addClass("searchLi"));
+        $(".searchhistory").prepend(li.addClass("searchLi"));
+        
     }
+
     /////////////clear history//////////////////
     $("#clearBtn").on("click", function(event) {
         $(".searchhistory").empty();
@@ -44,7 +45,6 @@ $(document).ready(function() {
         $("#5day4").empty();
         $("#5day5").empty();
     });
-    
 
     function searchCityWeather(city) {
         
@@ -57,6 +57,7 @@ $(document).ready(function() {
        // console.log(response);
 
             window.localStorage.setItem("history", JSON.stringify(city));
+    
             addSearchCity(city);
         //clear previous city
         $("#weather-current").empty();
